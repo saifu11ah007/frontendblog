@@ -1,0 +1,83 @@
+<%- include('partials/form-header') %>
+<%- include('nav') %>
+
+<div class="formbold-main-wrapper">
+  <div class="formbold-form-wrapper">
+    <form action="/submitarticle" method="POST">
+      <div class="formbold-input-flex">
+        <div>
+          <label for="firstname" class="formbold-form-label">First name</label>
+          <input type="text" name="firstname" id="firstname" placeholder="First Name" class="formbold-form-input" />
+        </div>
+        <div>
+          <label for="lastname" class="formbold-form-label">Last name</label>
+          <input type="text" name="lastname" id="lastname" placeholder="Last Name" class="formbold-form-input" />
+        </div>
+      </div>
+
+      <div class="formbold-input-flex">
+        <div>
+          <label for="phone" class="formbold-form-label">Title</label>
+          <input type="text" name="blogTitle" id="phone" placeholder="Title of Your Article" class="formbold-form-input" />
+        </div>
+      </div>
+
+      <div class="formbold-input-radio-wrapper">
+        <label for="jobtitle" class="formbold-form-label">How do you want to Post?</label>
+
+        <div class="formbold-radio-flex">
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label">
+              <input class="formbold-input-radio" type="radio" name="visibility" value="public" id="public">
+              Public
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
+
+          <div class="formbold-radio-group">
+            <label class="formbold-radio-label">
+              <input class="formbold-input-radio" type="radio" name="visibility" value="private" id="private">
+              Private
+              <span class="formbold-radio-checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label for="message" class="formbold-form-label">Write Your Content</label>
+        <!-- Formatting Buttons -->
+        <button type="button" class="editor-button" onclick="formatText('bold')"><strong>B</strong></button>
+        <button type="button" class="editor-button" onclick="formatText('italic')"><em>I</em></button>
+        <button type="button" class="editor-button" onclick="formatText('insertParagraph')">P</button>
+        <button type="button" class="editor-button" onclick="formatText('insertUnorderedList')">•</button>
+        <!-- Contenteditable Div -->
+        <div id="editor" contenteditable="true" class="editor-content"></div>
+        <!-- Hidden Textarea -->
+        <textarea name="content" id="message" class="formbold-form-input" style="display:none;"></textarea>
+      </div>
+
+      <button class="formbold-btn" type="submit" name="button">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Function to format text using execCommand
+  function formatText(command) {
+      document.execCommand(command, false, null);
+      syncContent();
+  }
+
+  // Sync content from editor to textarea
+  function syncContent() {
+      const editor = document.getElementById('editor');
+      const textarea = document.getElementById('message');
+      textarea.value = editor.innerHTML;
+  }
+
+  // Sync content before form submission
+  document.querySelector('form').addEventListener('submit', syncContent);
+</script>
+
+<%- include('partials/footer') %>

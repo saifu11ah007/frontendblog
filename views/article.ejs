@@ -1,0 +1,72 @@
+<%- include('partials/header') %>
+<%- include('blog-nav') %>
+<% Titles.forEach(function(item,index) { %>
+    <div class="about_section layout_padding">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-sm-12">
+            <div class="about_img"><img src="images/img-8.png"></div>
+            <div class="like_icon"><img src="images/like-icon.png"></div>
+            <p class="post_text">Post By : <%=date %>/<%=month %>/<%=years %> </p>
+            <p class="post_text">Total Likes: <span id="like-count-<%= item._id %>"><%- item.likes.length %></span></p>
+            <h2 class="most_text">
+              <%= item.name %><br>River
+            </h2>
+            <p class="lorem_text">
+              <%= item.content.substring(0,30)+ "..." %>
+            </p>
+            <div class="social_icon_main">
+              <div class="social_icon">
+                <ul>
+                  <li><a href="#"><img src="images/fb-icon.png"></a></li>
+                  <li><a href="#"><img src="images/twitter-icon.png"></a></li>
+                  <li><a href="#"><img src="images/instagram-icon.png"></a></li>
+                </ul>
+              </div>
+              <form action="/read" method="POST">
+                <div class="read_bt"><a id="readmore" href="/<%=item.name%>">
+                  Read More</a></div>
+              </form>
+              
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-12">
+            <div class="about_main">
+              <h1 class="follow_text">CONNECT & FOLLOW</h1>
+              <div class="follow_icon">
+                <ul>
+                  <li><a href="#"><img src="images/fb-icon-1.png"></a></li>
+                  <li><a href="#"><img src="images/twitter-icon-1.png"></a></li>
+                  <li><a href="#"><img src="images/linkedin-icon-1.png"></a></li>
+                  <li><a href="#"><img src="images/instagram-icon-1.png"></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<% }) %>
+<script>
+  // Add event listeners to all elements with the class 'readmore'
+  document.querySelectorAll('.readmore').forEach(function(element) {
+    element.addEventListener('click', function(event) {
+      // Prevent the default action if needed
+      event.preventDefault();
+      
+      // Get the index from the data attribute
+      var index = element.getAttribute('data-index');
+
+      // Find the corresponding counter element
+      var counter = document.querySelector('.countDisplay[data-index="' + index + '"]');
+
+      // Increment the count
+      var count = parseInt(counter.textContent) || 0;
+      count++;
+
+      // Update the display of the count
+      counter.textContent = count;
+    });
+  });
+</script>
+<%- include('partials/footer') %>

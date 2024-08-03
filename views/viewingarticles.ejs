@@ -1,0 +1,16 @@
+<%- include('partials/account-header') %>
+<%- include('blog-nav') %>
+  <div class="container light-style flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-4">My Articles</h4>
+  
+    <div class="list-group">
+      <% articles.forEach(article => { %>
+        <a href="/<%=article.name%>" class="list-group-item list-group-item-action">
+          <h5 class="mb-1"><strong><%= article.name %></strong></h5>
+          <p class="mb-1"><%= article.content.substring(0, 100) %>...</p>
+          <small><%= article.isPublic ? 'Public' : 'Private' %></small>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+<%- include('partials/footer') %>
